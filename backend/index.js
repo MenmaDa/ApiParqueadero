@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 const { Pool } = require("pg");
 
 const app = express();
@@ -7,11 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "parqueadero",
-  password: "12345",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 function validarPlaca(placa) {
@@ -117,7 +118,7 @@ app.get("/historial", async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
+  console.log("Servidor corriendo en https://apiparqueadero-production.up.railway.app/");
 });
 
 //USUARIOS
